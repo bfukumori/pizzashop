@@ -25,7 +25,7 @@ export function SignIn() {
     formState: { isSubmitting, errors },
   } = useForm<SignInForm>({
     defaultValues: {
-      email: state?.email || '',
+      email: state?.email ?? '',
     },
     resolver: zodResolver(schema),
   })
