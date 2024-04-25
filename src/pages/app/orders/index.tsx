@@ -8,11 +8,15 @@ import { Pagination } from '@/components/pagination'
 import { Table } from '@/components/ui/table'
 
 import { OrderTableBody } from './order-table-body'
-import { OrderTableFilters } from './order-table-filters'
+import { OrderFiltersSchema, OrderTableFilters } from './order-table-filters'
 import { OrderTableHeader } from './order-table-header'
 
 export function Orders() {
   const [searchParams, setSearchParams] = useSearchParams()
+
+  const orderId = searchParams.get('orderId')
+  const customerName = searchParams.get('customerName')
+  const status = searchParams.get('status') as OrderFiltersSchema['status']
 
   const pageIndex = z.coerce
     .number()
@@ -20,8 +24,8 @@ export function Orders() {
     .parse(searchParams.get('page') ?? '1')
 
   const { data: result } = useQuery({
-    queryKey: ['orders', pageIndex],
-    queryFn: () => getOrders({ pageIndex }),
+    queryKey: ['orders', pageIndex, orderId, customerName, status],
+    queryFn: () => getOrders({ pageIndex, orderId, customerName, status }),
   })
 
   function handlePageChange(pageIndex: number) {
