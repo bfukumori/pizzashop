@@ -1,5 +1,6 @@
 import { ArrowRight, Search, X } from 'lucide-react'
 
+import { Order } from '@/api/get-orders'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { TableCell, TableRow } from '@/components/ui/table'
@@ -10,13 +11,7 @@ import { OrderDetails } from './order-details'
 import { OrderStatus } from './order-status'
 
 interface OrderTableRowProps {
-  order: {
-    orderId: string
-    createdAt: Date
-    status: 'pending' | 'canceled' | 'processing' | 'delivering' | 'delivered'
-    customerName: string
-    total: number
-  }
+  order: Order
 }
 
 export function OrderTableRow({ order }: OrderTableRowProps) {

@@ -1,15 +1,10 @@
-type OrderStatus =
-  | 'pending'
-  | 'canceled'
-  | 'processing'
-  | 'delivering'
-  | 'delivered'
+import { OrderStatus as OrderStatusType } from '@/api/get-orders'
 
 interface OrderStatusProps {
-  status: OrderStatus
+  status: OrderStatusType
 }
 
-const orderStatusMap: Record<OrderStatus, string> = {
+const orderStatusMap: Record<OrderStatusType, string> = {
   pending: 'Pendente',
   canceled: 'Cancelado',
   processing: 'Em preparo',
@@ -32,7 +27,7 @@ export function OrderStatus({ status }: OrderStatusProps) {
         <span className="h-2 w-2 rounded-full bg-emerald-500" />
       )}
 
-      {['processing, delivering'].includes(status) && (
+      {['processing', 'delivering'].includes(status) && (
         <span className="h-2 w-2 rounded-full bg-amber-500" />
       )}
 

@@ -1,22 +1,18 @@
-import { useQuery } from '@tanstack/react-query'
-
-import { getOrders } from '@/api/get-orders'
+import { Order } from '@/api/get-orders'
 import { TableBody } from '@/components/ui/table'
 
 import { OrderTableRow } from './order-table-row'
 
-export function OrderTableBody() {
-  const { data: result } = useQuery({
-    queryKey: ['orders'],
-    queryFn: getOrders,
-  })
+interface OrderTableBodyProps {
+  orders: Order[]
+}
 
+export function OrderTableBody({ orders }: OrderTableBodyProps) {
   return (
     <TableBody>
-      {result &&
-        result.orders.map((order) => (
-          <OrderTableRow key={order.orderId} order={order} />
-        ))}
+      {orders.map((order) => (
+        <OrderTableRow key={order.orderId} order={order} />
+      ))}
     </TableBody>
   )
 }
