@@ -1,7 +1,7 @@
 import { api } from '@/lib/axios'
 import { OrderFiltersSchema } from '@/pages/app/orders/order-table-filters'
 
-export type OrderStatus =
+export type OrderStatusType =
   | 'pending'
   | 'canceled'
   | 'processing'
@@ -11,7 +11,7 @@ export type OrderStatus =
 export type Order = {
   orderId: string
   createdAt: Date
-  status: OrderStatus
+  status: OrderStatusType
   customerName: string
   total: number
 }

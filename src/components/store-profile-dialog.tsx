@@ -31,6 +31,28 @@ const storeProfileSchema = z.object({
 
 type StoreProfileSchema = z.infer<typeof storeProfileSchema>
 
+function updateManagedRestaurantCache({
+  name,
+  description,
+}: StoreProfileSchema) {
+  const cached = queryClient.getQueryData<GetManagedRestaurantResponse>([
+    'managed-restaurant',
+  ])
+
+  if (cached) {
+    queryClient.setQueryData<GetManagedRestaurantResponse>(
+      ['managed-restaurant'],
+      {
+        ...cached,
+        name,
+        description,
+      },
+    )
+  }
+
+  return { cached }
+}
+
 export function StoreProfileDialog() {
   const { data: managedRestaurant } = useQuery({
     queryKey: ['managed-restaurant'],
@@ -69,28 +91,6 @@ export function StoreProfileDialog() {
     },
     resolver: zodResolver(storeProfileSchema),
   })
-
-  function updateManagedRestaurantCache({
-    name,
-    description,
-  }: StoreProfileSchema) {
-    const cached = queryClient.getQueryData<GetManagedRestaurantResponse>([
-      'managed-restaurant',
-    ])
-
-    if (cached) {
-      queryClient.setQueryData<GetManagedRestaurantResponse>(
-        ['managed-restaurant'],
-        {
-          ...cached,
-          name,
-          description,
-        },
-      )
-    }
-
-    return { cached }
-  }
 
   async function updateRestaurantProfile({
     name,

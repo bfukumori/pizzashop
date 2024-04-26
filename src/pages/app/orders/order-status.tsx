@@ -1,4 +1,4 @@
-import { OrderStatus as OrderStatusType } from '@/api/get-orders'
+import { OrderStatusType } from '@/api/get-orders'
 
 interface OrderStatusProps {
   status: OrderStatusType

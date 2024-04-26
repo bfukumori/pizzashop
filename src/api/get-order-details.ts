@@ -1,6 +1,6 @@
 import { api } from '@/lib/axios'
 
-import { OrderStatus } from './get-orders'
+import { OrderStatusType } from './get-orders'
 
 type Customer = {
   name: string
@@ -22,7 +22,7 @@ interface GetOrderDetailsParams {
 }
 
 interface GetOrderDetailsResponse {
-  status: OrderStatus
+  status: OrderStatusType
   id: string
   createdAt: Date
   totalInCents: number
