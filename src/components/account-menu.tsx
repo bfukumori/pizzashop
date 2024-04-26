@@ -41,15 +41,13 @@ export function AccountMenu() {
     onSuccess: () => {
       navigate('/sign-in', { replace: true })
     },
+    onError: (error) => {
+      console.error(error)
+    },
   })
 
   async function handleSignOut() {
-    try {
-      await signOutFn()
-      navigate('/sign-in', { replace: true })
-    } catch (error) {
-      console.error(error)
-    }
+    await signOutFn()
   }
 
   return (

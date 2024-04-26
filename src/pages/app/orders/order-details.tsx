@@ -31,6 +31,7 @@ export function OrderDetails({ orderId, open }: OrderDetailsProps) {
     queryKey: ['order', orderId],
     queryFn: () => getOrderDetails({ orderId }),
     enabled: open,
+    staleTime: Infinity,
   })
 
   if (!order) {

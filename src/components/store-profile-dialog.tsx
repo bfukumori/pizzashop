@@ -46,11 +46,15 @@ export function StoreProfileDialog() {
 
       return { previousProfile: cached }
     },
-
-    onError: (_, __, context) => {
+    onError: (error, __, context) => {
       if (context?.previousProfile) {
         updateManagedRestaurantCache(context.previousProfile)
       }
+      console.error(error)
+      toast.error('Falha ao atualizar perfil')
+    },
+    onSuccess: () => {
+      toast.success('Perfil atualizado com sucesso')
     },
   })
 
@@ -92,15 +96,10 @@ export function StoreProfileDialog() {
     name,
     description,
   }: StoreProfileSchema) {
-    try {
-      await updateProfileFn({
-        name,
-        description,
-      })
-      toast.success('Perfil atualizado com sucesso')
-    } catch (error) {
-      toast.error('Falha ao atualizar perfil')
-    }
+    await updateProfileFn({
+      name,
+      description,
+    })
   }
 
   return (

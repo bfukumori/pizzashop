@@ -1,10 +1,14 @@
+import { useMutation } from '@tanstack/react-query'
 import { ArrowRight, Search, X } from 'lucide-react'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
-import { Order } from '@/api/get-orders'
+import { cancelOrder } from '@/api/cancel-order'
+import { GetOrdersResponse, Order } from '@/api/get-orders'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { TableCell, TableRow } from '@/components/ui/table'
+import { queryClient } from '@/lib/react-query'
 import { dateFormatter } from '@/utils/dateFormatter'
 import { priceFormatter } from '@/utils/priceFormatter'
 
@@ -19,6 +23,40 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const { createdAt, customerName, orderId, status, total } = order
+
+  const { mutateAsync: cancelOrderFn } = useMutation({
+    mutationFn: cancelOrder,
+    onSuccess: (_, { orderId }) => {
+      const ordersListCache = queryClient.getQueriesData<GetOrdersResponse>({
+        queryKey: ['orders'],
+      })
+
+      ordersListCache.forEach(([cacheKey, cacheData]) => {
+        if (!cacheData) {
+          return
+        }
+
+        queryClient.setQueryData<GetOrdersResponse>(cacheKey, {
+          ...cacheData,
+          orders: cacheData.orders.map((order) => {
+            if (order.orderId === orderId) {
+              return {
+                ...order,
+                status: 'canceled',
+              }
+            }
+
+            return order
+          }),
+        })
+      })
+      toast.success('Pedido cancelado com sucesso')
+    },
+    onError: (error) => {
+      console.error(error)
+      toast.error('Erro ao cancelar o pedido')
+    },
+  })
 
   return (
     <TableRow>
@@ -51,7 +89,12 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
         </Button>
       </TableCell>
       <TableCell>
-        <Button variant="ghost" size="xs">
+        <Button
+          onClick={() => cancelOrderFn({ orderId })}
+          variant="ghost"
+          size="xs"
+          disabled={!['pending', 'processing'].includes(status)}
+        >
           <X className="mr-2 h-3 w-3" />
           Cancelar
         </Button>
