@@ -8,7 +8,7 @@ import { TableCell, TableRow } from '@/components/ui/table'
 import { dateFormatter } from '@/utils/dateFormatter'
 import { priceFormatter } from '@/utils/priceFormatter'
 
-import { useOrderMutations } from './hooks/useOrderMutations'
+import { useOrderChangeStatus } from './hooks/useOrderChangeStatus'
 import { OrderDetails } from './order-details'
 import { OrderStatus } from './order-status'
 
@@ -20,7 +20,7 @@ export function OrderTableRow({ order }: OrderTableRowProps) {
   const [isOpen, setIsOpen] = useState(false)
 
   const { handleChangeOrderStatus, isDisabled, actionButtonText } =
-    useOrderMutations()
+    useOrderChangeStatus()
 
   const { createdAt, customerName, orderId, status, total } = order
 

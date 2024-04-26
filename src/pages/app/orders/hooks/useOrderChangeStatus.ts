@@ -34,7 +34,7 @@ function updateOrderStatusCache(orderId: string, status: OrderStatusType) {
   })
 }
 
-export function useOrderMutations() {
+export function useOrderChangeStatus() {
   const { mutateAsync: cancelOrderFn, isPending: isCancellingOrder } =
     useMutation({
       mutationFn: cancelOrder,
