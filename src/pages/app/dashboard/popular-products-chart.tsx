@@ -4,28 +4,7 @@ import colors from 'tailwindcss/colors'
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
-const data = [
-  {
-    product: 'Pepperoni',
-    amount: 40,
-  },
-  {
-    product: 'Mussarela',
-    amount: 30,
-  },
-  {
-    product: 'Margherita',
-    amount: 50,
-  },
-  {
-    product: '4 Queijos',
-    amount: 16,
-  },
-  {
-    product: 'Frango com Catupiry',
-    amount: 26,
-  },
-]
+import { useMetrics } from './hooks/useMetrics'
 
 const COLORS = [
   colors.sky[500],
@@ -36,6 +15,8 @@ const COLORS = [
 ]
 
 export function PopularProductsChart() {
+  const { popularProducts } = useMetrics()
+
   return (
     <Card className="col-span-3">
       <CardHeader className="pb-8">
@@ -47,32 +28,34 @@ export function PopularProductsChart() {
         </div>
       </CardHeader>
       <CardContent>
-        <ResponsiveContainer width="100%" height={240}>
-          <PieChart style={{ fontSize: 12 }}>
-            <Pie
-              data={data}
-              dataKey="amount"
-              nameKey="product"
-              cx="50%"
-              cy="50%"
-              outerRadius={86}
-              innerRadius={64}
-              strokeWidth={8}
-              labelLine={false}
-              label={({ name, percent }) =>
-                `${name} (${(percent * 100).toFixed(0)}%)`
-              }
-            >
-              {data.map((_, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index]}
-                  className="stroke-background hover:opacity-80"
-                />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
+        {popularProducts && (
+          <ResponsiveContainer width="100%" height={240}>
+            <PieChart style={{ fontSize: 12 }}>
+              <Pie
+                data={popularProducts}
+                dataKey="amount"
+                nameKey="product"
+                cx="50%"
+                cy="50%"
+                outerRadius={86}
+                innerRadius={64}
+                strokeWidth={8}
+                labelLine={false}
+                label={({ name, percent }) =>
+                  `${name} (${(percent * 100).toFixed(0)}%)`
+                }
+              >
+                {popularProducts.map((_, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index]}
+                    className="stroke-background hover:opacity-80"
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
+        )}
       </CardContent>
     </Card>
   )

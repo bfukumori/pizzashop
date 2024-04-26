@@ -4,6 +4,7 @@ import { getDayOrdersAmount } from '@/api/get-day-orders-amount'
 import { getMonthCanceledOrdersAmount } from '@/api/get-month-canceled-orders-amount'
 import { getMonthOrdersAmount } from '@/api/get-month-orders-amount'
 import { getMonthRevenue } from '@/api/get-month-revenue'
+import { getPopularProducts } from '@/api/get-popular-products'
 
 export function useMetrics() {
   const { data: dayOrdersAmount } = useQuery({
@@ -26,10 +27,16 @@ export function useMetrics() {
     queryFn: getMonthRevenue,
   })
 
+  const { data: popularProducts } = useQuery({
+    queryKey: ['metrics', 'popular-products'],
+    queryFn: getPopularProducts,
+  })
+
   return {
     dayOrdersAmount,
     monthRevenue,
     monthCanceledOrdersAmount,
     monthOrdersAmount,
+    popularProducts,
   }
 }
