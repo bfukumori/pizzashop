@@ -1,54 +1,15 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
-import { useForm } from 'react-hook-form'
-import { Link, useLocation } from 'react-router-dom'
-import { toast } from 'sonner'
-import { z } from 'zod'
+import { Link } from 'react-router-dom'
 
-import { signIn } from '@/api/sign-in'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-const schema = z.object({
-  email: z.string().email('E-mail inválido'),
-})
-
-type SignInForm = z.infer<typeof schema>
+import { useSignInMutations } from './hooks/useSignInMutations'
 
 export function SignIn() {
-  const { state } = useLocation() as { state: { email: string } }
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-  } = useForm<SignInForm>({
-    defaultValues: {
-      email: state?.email ?? '',
-    },
-    resolver: zodResolver(schema),
-  })
-
-  const { mutateAsync: authenticate } = useMutation({
-    mutationFn: signIn,
-  })
-
-  async function handleSignIn({ email }: SignInForm) {
-    try {
-      await authenticate({ email })
-      toast.success('Enviamos um link de acesso para seu e-mail.', {
-        action: {
-          label: 'Reenviar',
-          onClick: () => {
-            handleSignIn({ email })
-          },
-        },
-      })
-    } catch (error) {
-      toast.error('Credenciais inválidas.')
-    }
-  }
+  const { errors, handleSignIn, handleSubmit, isSubmitting, register } =
+    useSignInMutations()
 
   return (
     <>
