@@ -3,6 +3,7 @@ import { DollarSign } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import { useMetrics } from './hooks/useMetrics'
+import { MetricsCardSkeleton } from './metrics-card-skeleton'
 import { MetricsData } from './metrics-data'
 
 export function MonthRevenueCard() {
@@ -17,7 +18,7 @@ export function MonthRevenueCard() {
         <DollarSign className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
-        {monthRevenue && (
+        {monthRevenue ? (
           <MetricsData
             isPrice
             timeReference="ao mês passado"
@@ -27,6 +28,8 @@ export function MonthRevenueCard() {
               monthRevenue.diffFromLastMonth >= 0 ? 'positive' : 'negative'
             }
           />
+        ) : (
+          <MetricsCardSkeleton />
         )}
       </CardContent>
     </Card>

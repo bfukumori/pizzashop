@@ -9,7 +9,7 @@ export function useOrderQueries() {
   const { orderId, customerName, status } = useOrderFilter()
   const { pageIndex } = useOrderPagination()
 
-  const { data: result } = useQuery({
+  const { data: result, isLoading: isLoadingOrders } = useQuery({
     queryKey: ['orders', pageIndex, orderId, customerName, status],
     queryFn: () => getOrders({ pageIndex, orderId, customerName, status }),
     staleTime: Infinity,
@@ -17,5 +17,6 @@ export function useOrderQueries() {
 
   return {
     orderResults: result,
+    isLoadingOrders,
   }
 }
