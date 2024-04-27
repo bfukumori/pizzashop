@@ -30,7 +30,7 @@ export function OrderTableFilters() {
       />
       <Input
         placeholder="Nome do cliente"
-        className="h-8 w-[320px]"
+        className="h-8 w-[320px] flex-1"
         {...register('customerName')}
       />
       <Controller

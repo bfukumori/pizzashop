@@ -18,7 +18,7 @@ export function PopularProductsChart() {
   const { popularProducts } = useMetrics()
 
   return (
-    <Card className="col-span-3">
+    <Card className="lg:col-span-3">
       <CardHeader className="pb-8">
         <div className="flex items-center justify-between space-y-1">
           <CardTitle className="text-base font-medium">

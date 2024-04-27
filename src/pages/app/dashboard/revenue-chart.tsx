@@ -36,15 +36,15 @@ export function RevenueChart() {
   )
 
   return (
-    <Card className="col-span-6">
-      <CardHeader className="flex-row items-center justify-between pb-8">
-        <div className="space-y-1">
+    <Card className="lg:col-span-6">
+      <CardHeader className="flex-row flex-wrap items-center justify-between pb-8">
+        <div className="mb-4 space-y-1">
           <CardTitle className="text-base font-medium">
             Receita no período
           </CardTitle>
           <CardDescription>Receita diária no período</CardDescription>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex w-full flex-wrap items-center justify-between gap-3">
           <Label>Período</Label>
           <DateRangePicker date={date} onDateChange={setDate} />
         </div>
