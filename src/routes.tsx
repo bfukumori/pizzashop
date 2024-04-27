@@ -10,7 +10,6 @@ import { SignUp } from './pages/auth/sign-up'
 
 export const router = createBrowserRouter([
   {
-    path: '/',
     element: <AppLayout />,
     errorElement: <NotFound />,
     children: [
@@ -19,7 +18,6 @@ export const router = createBrowserRouter([
     ],
   },
   {
-    path: '/',
     element: <AuthLayout />,
     children: [
       { path: '/sign-in', element: <SignIn /> },

@@ -1,6 +1,3 @@
-import { useQuery } from '@tanstack/react-query'
-
-import { getOrderDetails } from '@/api/get-order-details'
 import {
   DialogContent,
   DialogDescription,
@@ -19,6 +16,7 @@ import {
 import { dateFormatter } from '@/utils/dateFormatter'
 import { priceFormatter } from '@/utils/priceFormatter'
 
+import { useOrderDetails } from './hooks/useOrderDetails'
 import { OrderStatus } from './order-status'
 
 interface OrderDetailsProps {
@@ -27,12 +25,7 @@ interface OrderDetailsProps {
 }
 
 export function OrderDetails({ orderId, open }: OrderDetailsProps) {
-  const { data: order } = useQuery({
-    queryKey: ['order', orderId],
-    queryFn: () => getOrderDetails({ orderId }),
-    enabled: open,
-    staleTime: Infinity,
-  })
+  const { order } = useOrderDetails({ orderId, enabled: open })
 
   if (!order) {
     return null
