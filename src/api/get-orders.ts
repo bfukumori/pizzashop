@@ -1,5 +1,5 @@
 import { api } from '@/lib/axios'
-import { OrderFiltersSchema } from '@/pages/app/orders/order-table-filters'
+import { OrderFiltersSchema } from '@/pages/app/orders/hooks/useOrderFilter'
 
 export type OrderStatusType =
   | 'pending'
