@@ -1,11 +1,11 @@
 import { api } from '@/lib/axios'
 
-enum Role {
+export enum Role {
   MANAGER = 'manager',
   CUSTOMER = 'customer',
 }
 
-interface GetProfileResponse {
+export interface GetProfileResponse {
   name: string
   id: string
   email: string

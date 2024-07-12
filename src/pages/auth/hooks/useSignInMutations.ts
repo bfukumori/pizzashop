@@ -18,6 +18,7 @@ export function useSignInMutations() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { isSubmitting, errors },
   } = useForm<SignInForm>({
     defaultValues: {
@@ -52,5 +53,7 @@ export function useSignInMutations() {
     isSubmitting,
     errors,
     handleSignIn,
+    state,
+    setValue,
   }
 }

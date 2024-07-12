@@ -23,7 +23,10 @@ export function OrderTableFilters() {
       onSubmit={handleSubmit(handleFilter)}
     >
       <span>Filtros:</span>
-      <Input
+
+
+
+                 <Input
         placeholder="ID do pedido"
         className="h-8 w-auto"
         {...register('orderId')}

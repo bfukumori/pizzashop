@@ -17,11 +17,11 @@ type OrderItem = {
   }
 }
 
-interface GetOrderDetailsParams {
+export interface GetOrderDetailsParams {
   orderId: string
 }
 
-interface GetOrderDetailsResponse {
+export interface GetOrderDetailsResponse {
   status: OrderStatusType
   id: string
   createdAt: Date
