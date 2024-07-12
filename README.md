@@ -17,6 +17,8 @@ Dashboard para gestão do estabelecimento e controle de pedidos estilo iFood.
 - Caching e revalidação
 - Conexão com back-end (API)
 - Testes unitários
+- Testes E2E
+- Mock Services
 
 ## Funcionalidades
 
